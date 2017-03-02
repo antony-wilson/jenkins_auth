@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load i18n jenkins_auth_extras %}
+
+{% block navbar %}
+
+<ul class="nav nav-tabs">
+	<li><a href="{% url tabs.0.0 %}" title="{{ tabs.0.1 }}">{{ tabs.0.2 }}</a></li>
+	<li><a href="{% url tabs.1.0 %}" title="{{ tabs.1.1 }}">{{ tabs.1.2 }}</a></li>
+	<li><a href="{% url tabs.2.0 %}" title="{{ tabs.2.1 }}">{{ tabs.2.2 }}</a></li>
+	<li><a href="{% url tabs.3.0 %}" title="{{ tabs.3.1 }}">{{ tabs.3.2 }}</a></li>
+	<li><a href="{% url tabs.4.0 %}" title="{{ tabs.4.1 }}">{{ tabs.4.2 }}</a></li>
+	<li class="active"><a href="{% url tabs.5.0 %}" title="{{ tabs.5.1 }}">{{ tabs.5.2 }}</a></li>
+</ul>
+
+{% endblock %}
+
+{% block title %}Accounts{% endblock %}
+
+{% block content %}
+<div class="table-responsive">
+<table class="table table-hover">
+	<thead>
+	  <tr>
+	    <th>Account</th>
+	    <th>Name</th>
+	    <th>Email</th>
+	    <th>Date Joined</th>
+	    <th>Activation Key Expired</th>
+	  </tr>
+	</thead>
+	<tbody>
+	{% for user in object_list %}
+  	<tr class="row-pointer" onclick="document.location ='{% url 'staff_user_detail' user.id %}';" >
+    	<td>{{ user }}</td>
+    	<td>{{ user.get_full_name }}</td>
+    	<td>{{ user.email }}</td>
+    	<td>{{ user.date_joined }}</td>
+    	<td>{% boolean_icon user.registrationprofile.activation_key_expired %}</td>
+  	</tr>
+	{% endfor %}
+	</tbody>
+</table>
+</div>
+
+{% if show_delete %}
+	<form method=post action="delete">
+	  {% csrf_token %}
+	  <div class="buttons">
+		  <input class="btn btn-danger"
+		  	type="submit"
+		   	value="Delete Expired Registration Requests" />
+		</div>
+	</form>
+{% else %}
+    <div class="buttons">
+      <input class="btn btn-danger disabled"
+        type="button"
+        value="Delete Expired Registration Requests"
+        data-toggle="tooltip"
+      title="There are no expired registrations to delete" />
+    </div>
+{% endif %}
+
+{% endblock %}

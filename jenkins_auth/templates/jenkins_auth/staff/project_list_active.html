@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block navbar %}
+
+<ul class="nav nav-tabs">
+  <li class="active"><a href="{% url 'staff_project' %}">Active</a></li>
+  <li><a href="{% url 'staff_project' %}" title="Data to be gathered from Jenkins">Stale</a></li>
+</ul>
+
+{% endblock %}
+
+{% block title %}Projects{% endblock %}
+
+{% block content %}
+{% include 'jenkins_auth/staff/project_list_snippet.html' %}
+{% endblock %}

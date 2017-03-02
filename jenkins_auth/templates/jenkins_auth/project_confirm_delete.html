@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}Project Deletion{% endblock %}
+
+{% block content %}
+
+<div class="alert alert-danger">Please confirm deletion of project "{{ project.name }}"</div>
+
+<form method="post" action="">
+  {% csrf_token %}
+
+  <div class="buttons">
+	  <input class="btn btn-danger"
+	  	type="submit"
+	   	value="Confirm Delete" />
+	  <input class="btn btn-primary"
+	   	type="button" 
+	   	onclick="javascript:history.go(-1);"
+			value="Cancel" />
+	</div>
+
+</form>
+
+{% endblock %}

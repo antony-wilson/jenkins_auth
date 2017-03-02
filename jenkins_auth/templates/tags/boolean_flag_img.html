@@ -1,0 +1,10 @@
+{% load static %}
+<!-- Based on https://djangosnippets.org/snippets/1257/ -->
+
+{% if flag %}
+{% static "/admin/img/icon-yes.svg" as yes_icon %}
+<img src="{{ yes_icon }}" alt="True" />
+{% else %}
+{% static "/admin/img/icon-no.svg" as no_icon %}
+<img src="{{ no_icon }}" alt="False" />
+{% endif %}

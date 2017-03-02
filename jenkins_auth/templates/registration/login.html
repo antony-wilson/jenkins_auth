@@ -1,0 +1,42 @@
+{% extends "registration/registration_base.html" %}
+{% load i18n staticfiles jenkins_auth_extras %}
+
+{% block head %}<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-5" />
+<link rel="stylesheet" type="text/css" href="{% static 'jenkins_auth/css/idpselect.css' %}" />
+{% endblock %}
+
+{% block title %}
+{% if local_accounts %}
+	{% trans "Log in" %}
+{% else %}
+	{% trans "Log in using your institute credentials" %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+{% if local_accounts %}
+<form method="post" action="" class="form-horizontal">
+  {% csrf_token %}
+
+  {% form_as_bootstrap form %}
+
+  <div class="buttons">
+		<input class="btn btn-primary" type="submit" value="{% trans 'Log in' %}" />
+    <input type="hidden" name="next" value="{{ next }}" />
+  </div>
+
+</form>
+
+<p>{% trans "Forgot your password?" %} <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>.</p>
+<p>{% trans "Not a member?" %} <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>.</p>
+
+<h3>Log in using your institute credentials</h3>
+{% endif %}
+
+<div id="idpSelect"></div> 
+
+<script src="{% static 'jenkins_auth/scripts/idpselect_config.js' %}" type="text/javascript" language="javascript"></script>
+<script src="{% static 'jenkins_auth/scripts/idpselect.js' %}" type="text/javascript" language="javascript"></script>
+
+{% endblock %}

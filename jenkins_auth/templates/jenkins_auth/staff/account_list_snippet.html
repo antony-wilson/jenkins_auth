@@ -1,0 +1,38 @@
+<div class="table-responsive">
+<table class="table table-hover">
+	<thead>
+	  <tr>
+	    <th>Account</th>
+	    <th>Name</th>
+	    <th>Email</th>
+	    {% if show_projects %}
+		    <th>Projects Owned</th>
+	    {% endif %}
+	    <th>Date Joined</th>
+	    {% if waiting_approval %}
+	    <th>Registration Completed</th>
+      {% else %}
+      <th>Last Logged In</th>
+      {% endif %}
+	  </tr>
+	</thead>
+	<tbody>
+	{% for user in object_list %}
+  	<tr class="row-pointer" onclick="document.location ='{% url 'staff_user_detail' user.id %}';" >
+    	<td>{{ user }}</td>
+    	<td>{{ user.get_full_name }}</td>
+    	<td>{{ user.email }}</td>
+    	{% if show_projects %}
+	    	<td>
+		    	{% for project in user.project_owner.all %}
+		    		<p>{{ project.name }}</p>
+					{% endfor %}
+				</td>
+			{% endif %}
+    	<td>{{ user.date_joined }}</td>
+    	<td>{{ user.last_login }}</td>
+  	</tr>
+	{% endfor %}
+	</tbody>
+</table>
+</div>

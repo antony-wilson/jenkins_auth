@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block content %}
+
+{% block details %}
+<div>
+  <div class="row">
+    <label class="text-right col-sm-2">User id:</label>
+    <div class="col-sm-10">{{ user.id }}
+    </div>
+  </div>
+
+  {% if user.jenkinsuserprofile.shib_uid %}
+  <div class="row">
+    <label class="text-right col-sm-2">Shibboleth id:</label>
+    <div class="col-sm-10">{{ user.jenkinsuserprofile.shib_uid }}
+    </div>
+  </div>
+  {% else %}
+  <div class="row">
+    <label class="text-right col-sm-2">User name:</label>
+    <div class="col-sm-10">{{ user.username }}
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="row">
+    <label class="text-right col-sm-2">First name:</label>
+    <div class="col-sm-10">{{ user.first_name }}
+    </div>
+  </div>
+
+  <div class="row">
+    <label class="text-right col-sm-2">Last name:</label>
+    <div class="col-sm-10">{{ user.last_name }}
+    </div>
+  </div>
+
+  <div class="row">
+    <label class="text-right col-sm-2">Email:</label>
+    <div class="col-sm-10">{{ user.email }}
+    </div>
+  </div>
+</div>
+
+<div class="buttons">
+	<input class="btn btn-primary"
+		type="button"
+		onclick="location.href='{% url 'profile_change' %}';"
+		value="Edit Details" />
+	{% if user.has_usable_password %}
+		<input class="btn btn-primary"
+			type="button"
+			onclick="location.href='{% url 'auth_password_change' %}';"
+			value="Change Password" />
+	{% endif %}
+	{% if project_count < 1 %}
+	<input class="btn btn-danger"
+		type="button" 
+		onclick="location.href='{% url 'profile_delete' %}'"
+		value="Delete Account" />
+	{% else %}
+	<!-- delete is disabled as user is a project owner -->
+	<input class="btn btn-danger disabled"
+		type="button" 
+		value="Delete Account"
+		data-toggle="tooltip"
+		{% if project_count > 1 %}
+  		title="Account cannot be deleted as you are the owner of {{ project_count }} projects" />
+    {% else %}
+      title="Account cannot be deleted as you are the owner of a project" />
+    {% endif %}
+	{% endif %}
+</div>
+
+{% endblock %}
+
+{% endblock %}

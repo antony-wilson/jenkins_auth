@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<h3>Actions</h3>
+
+<ul>
+{% if approve_accounts %}
+	<li><strong><a href="{% url 'staff_user_approval' %}" class="text-danger">Approve accounts</a></strong></li>
+{% endif %}
+{% if approve_projects %}
+	<li><strong><a href="{% url 'staff_project_approval' %}" class="text-danger">Approve projects</a></strong></li>
+{% endif %}
+	<li><a href="{% url 'project-add' %}">Create new project</a></li>
+	<li><a href="{% url 'jenkins' %}">Submit a build</a></li>
+</ul>
+
+{% if project_owner_list or project_admin_list or project_user_list %}
+	<h3>My Projects</h3>
+{% endif %}
+
+<div class="panel-group" id="accordion">
+{% if project_owner_list %}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+        Owner</a>
+      </h4>
+    </div>
+    <div id="collapse1" class="panel-collapse collapse in">
+      <div class="panel-body">
+      	<ul>
+				{% for p in project_owner_list %}
+					<li><a href="{% url 'project-detail' p.id %}">{{ p.name }}</a></li>
+				{% endfor %}
+				</ul>
+			</div>
+    </div>
+  </div>
+{% endif %}
+
+{% if project_admin_list %}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+        Admin</a>
+      </h4>
+    </div>
+    <div id="collapse2" class="panel-collapse collapse">
+      <div class="panel-body">
+        <ul>
+					{% for p in project_admin_list %}
+						<li><a href="{% url 'project-detail' p.id %}">{{ p.name }}</a></li>
+					{% endfor %}
+				</ul>
+			</div>
+    </div>
+  </div>
+{% endif %}
+
+{% if project_user_list %}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+        User</a>
+      </h4>
+    </div>
+    <div id="collapse3" class="panel-collapse collapse">
+      <div class="panel-body">
+      	<ul>
+      		{% for p in project_user_list %}
+						<li><a href="{% url 'project-detail' p.id %}">{{ p.name }}</a></li>
+					{% endfor %}
+				</ul>
+			</div>
+    </div>
+  </div>
+{% endif %}
+
+</div>
+
+{% endblock %}

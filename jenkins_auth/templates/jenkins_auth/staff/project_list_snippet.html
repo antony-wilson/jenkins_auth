@@ -1,0 +1,21 @@
+<div class="table-responsive">
+<table class="table table-hover">
+	<thead>
+  	<tr>
+   		<th>Project</th>
+   		<th>Owner</th>
+   		<th>Date Created</th>
+  	</tr>
+ 	</thead>
+
+ 	<tbody>
+		{% for project in object_list %}
+  		<tr class="row-pointer" onclick="document.location ='{% url 'staff_project_detail' project.id %}';" >
+   			<td>{{ project.name }}</td>
+    		<td>{{ project.owner.get_full_name }}</td>
+    		<td>{{ project.created_on }}</td>
+  		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+</div>

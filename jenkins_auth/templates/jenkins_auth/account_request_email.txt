@@ -1,0 +1,8 @@
+{% load i18n %}{% blocktrans with site_name=site.name %}User {{ activated_user }} ({{ activated_username }}) has requested an account at {{ site_name }}.{% endblocktrans %}
+{% blocktrans %}
+Please review their application at :{% endblocktrans %}
+https://{{site.domain}}{% url 'staff_user_detail' activated_id %}
+{% blocktrans with site_name=site.name %}
+Sincerely,
+{{ site_name }}
+{% endblocktrans %}

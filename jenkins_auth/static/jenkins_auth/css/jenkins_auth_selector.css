@@ -1,0 +1,198 @@
+/**  extra css for FilteredSelectMultiple  */
+select[multiple] {
+	min-height: 150px;
+}
+
+.selector {
+	float: left;
+	width: 800px;
+}
+
+.selector h2 {
+	font-size: 16px;
+	margin: 1em 0 0.5em;
+}
+
+.selector h1, h2, h3, h4, h5 {
+	font-weight: bold;
+}
+
+.selector select {
+	border-radius: 0 0 4px 4px;
+	margin: 0 0 10px;
+	padding: 0 10px;
+	height: 17.2em;
+	width: 380px;
+}
+
+.selector-add {
+	background: rgba(0, 0, 0, 0) url("../images/selector-icons.svg")
+		no-repeat scroll 0 -96px;
+}
+
+.selector-remove {
+	background: rgba(0, 0, 0, 0) url("../images/selector-icons.svg")
+		no-repeat scroll 0 -64px;
+}
+
+.selector-add, .selector-remove {
+	cursor: default;
+	display: block;
+	height: 16px;
+	opacity: 0.3;
+	overflow: hidden;
+	text-indent: -3000px;
+	width: 16px;
+}
+
+.selector-available, .selector-chosen {
+	float: left;
+	margin-bottom: 5px;
+	text-align: center;
+	width: 380px;
+}
+
+.selector-chosen select {
+	border-top: medium none;
+}
+
+.selector-chosen h2 {
+	background: #d9edf7 none repeat scroll 0 0;
+	color: #31708f;
+}
+
+.selector .selector-available input {
+	margin-left: 8px;
+	width: 320px;
+}
+
+.selector .selector-available h2 {
+	background: #f8f8f8 none repeat scroll 0 0;
+	color: #666;
+}
+
+.selector-available h2, .selector-chosen h2 {
+	border: 1px solid #ccc;
+	border-radius: 4px 4px 0 0;
+}
+
+.selector .selector-filter {
+	-moz-border-bottom-colors: none;
+	-moz-border-left-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-top-colors: none;
+	background: white none repeat scroll 0 0;
+	border-color: #ccc;
+	border-image: none;
+	border-style: solid;
+	border-width: 0 1px;
+	color: #999;
+	font-size: 10px;
+	margin: 0;
+	padding: 8px;
+	text-align: left;
+}
+
+.selector .selector-filter label, .inline-group .aligned .selector .selector-filter label
+	{
+	float: left;
+	height: 18px;
+	line-height: 1;
+	margin: 7px 0 0;
+	overflow: hidden;
+	padding: 0;
+	width: 18px;
+}
+
+.selector .help-icon {
+	background: rgba(0, 0, 0, 0) url("../images/icon-unknown.svg") no-repeat
+		scroll 0 0;
+	display: inline-block;
+	height: 13px;
+	margin: -2px 0 0 2px;
+	vertical-align: middle;
+	width: 13px;
+}
+
+.selector .search-label-icon {
+	background: rgba(0, 0, 0, 0) url("../images/search.svg") no-repeat
+		scroll 0 0;
+	display: inline-block;
+	height: 18px;
+	width: 18px;
+}
+
+a.selector-clearall {
+	background: rgba(0, 0, 0, 0) url("../images/selector-icons.svg")
+		no-repeat scroll 0 -128px;
+	cursor: default;
+	padding: 0 0 0 18px;
+}
+
+a.selector-chooseall, a.selector-clearall {
+	color: #666;
+	display: inline-block;
+	font-weight: bold;
+	height: 16px;
+	line-height: 16px;
+	margin: 1px auto 3px;
+	opacity: 0.3;
+	overflow: hidden;
+	text-align: left;
+	text-decoration: none;
+}
+
+a.active.selector-chooseall, a.active.selector-clearall {
+	opacity: 1;
+}
+
+a.selector-chooseall {
+	background: rgba(0, 0, 0, 0) url("../images/selector-icons.svg")
+		no-repeat scroll right -160px;
+	cursor: default;
+	padding: 0 18px 0 0;
+}
+
+.selector ul.selector-chooser {
+	background-color: #eee;
+	border-radius: 10px;
+	float: left;
+	margin: 10em 5px 0;
+	padding: 0;
+	width: 22px;
+}
+
+.selector-chooser li {
+	list-style-type: none;
+	margin: 0;
+	padding: 3px;
+}
+
+.help, p.help, form p.help {
+	color: #999;
+	font-size: 11px;
+}
+
+.help-tooltip {
+	cursor: help;
+}
+
+input[type="text"], input[type="password"], input[type="email"], input[type="url"],
+	input[type="number"], textarea, select, .vTextField {
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	margin-top: 0;
+	padding: 5px 6px;
+}
+
+input, textarea, select, .form-row p, form .button {
+	font-family: "Roboto", "Lucida Grande", Verdana, Arial, sans-serif;
+	font-size: 13px;
+	font-weight: normal;
+	vertical-align: middle;
+}
+
+a:link, a:visited {
+	color: #31708f;
+	text-decoration: none;
+}

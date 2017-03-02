@@ -1,0 +1,45 @@
+{% extends "user/profile.html" %}
+{% load i18n jenkins_auth_extras %}
+
+{% block details %}
+
+{% if form.non_field_errors %}
+	<div class="alert alert-danger">{{ form.non_field_errors }}</div>
+{% endif %}
+
+<form method="post" action="{% url 'profile_change' %}" class="form-horizontal">
+	{% csrf_token %}
+
+  <div class="row">
+    <label class="text-right col-sm-2">User id:</label>
+    <div class="col-sm-10">{{ user.id }}
+    </div>
+  </div>
+
+  {% if user.jenkinsuserprofile.shib_uid %}
+  <div class="row">
+    <label class="text-right col-sm-2">Shibboleth id:</label>
+    <div class="col-sm-10">{{ user.jenkinsuserprofile.shib_uid }}
+    </div>
+  </div>
+  {% else %}
+  <div class="row">
+    <label class="text-right col-sm-2">User name:</label>
+    <div class="col-sm-10">{{ user.username }}
+    </div>
+  </div>
+  {% endif %}
+
+  {% form_as_bootstrap form %}
+
+	<div class="buttons">
+		<input class="btn btn-primary" type="submit"
+			value="SAVE">
+		<input class="btn btn-primary" type="button"
+			onclick="location.href='{% url 'profile' %}'"
+			value="Cancel" />
+	</div>
+
+</form>
+
+{% endblock %}

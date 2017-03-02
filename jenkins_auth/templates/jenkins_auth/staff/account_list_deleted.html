@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block navbar %}
+
+<ul class="nav nav-tabs">
+	<li><a href="{% url tabs.0.0 %}" title="{{ tabs.0.1 }}">{{ tabs.0.2 }}</a></li>
+	<li><a href="{% url tabs.1.0 %}" title="{{ tabs.1.1 }}">{{ tabs.1.2 }}</a></li>
+	<li><a href="{% url tabs.2.0 %}" title="{{ tabs.2.1 }}">{{ tabs.2.2 }}</a></li>
+	<li class="active"><a href="{% url tabs.3.0 %}" title="{{ tabs.3.1 }}">{{ tabs.3.2 }}</a></li>
+	<li><a href="{% url tabs.4.0 %}" title="{{ tabs.4.1 }}">{{ tabs.4.2 }}</a></li>
+	<li><a href="{% url tabs.5.0 %}" title="{{ tabs.5.1 }}">{{ tabs.5.2 }}</a></li>
+</ul>
+
+{% endblock %}
+
+{% block title %}Accounts{% endblock %}
+
+{% block content %}
+{% include 'jenkins_auth/staff/account_list_snippet.html' %}
+{% endblock %}

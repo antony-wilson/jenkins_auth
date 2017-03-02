@@ -1,0 +1,27 @@
+/** Add css rules here for your application. */
+div.buttons {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.btn {
+	margin-bottom: 3px;
+}
+
+tr.row-select:hover {
+	cursor: pointer;
+	background-color: #eee;
+}
+
+td.cell-select:hover {
+	cursor: pointer;
+	background-color: #eee;
+}
+
+tr.row-pointer:hover {
+	cursor: pointer;
+}
+
+table.text-top th, td {
+	vertical-align: top;
+}

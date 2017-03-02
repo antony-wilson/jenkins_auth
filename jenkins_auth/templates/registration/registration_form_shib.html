@@ -1,0 +1,24 @@
+{% extends "registration/registration_base.html" %}
+{% load i18n jenkins_auth_extras %}
+
+{% block title %}{% trans "Register for an account" %}{% endblock %}
+
+{% block content %}
+
+<p>Before you can use your institute id we need to know a bit more about you.</p>
+<form method="post" action="" class="form-horizontal">
+  {% csrf_token %}
+
+  {% form_as_bootstrap form %}
+
+  <div>
+    <label >I have read and agree to the <a href="{% url 'tos' %}">Terms of Service</a>:</label>
+    <input id="id_tos" name="tos" type="checkbox" required />
+  </div>
+
+  <div class="buttons">
+    <input class="btn btn-primary" type="submit" value="{% trans 'Submit' %}" />
+   </div>
+
+</form>
+{% endblock %}

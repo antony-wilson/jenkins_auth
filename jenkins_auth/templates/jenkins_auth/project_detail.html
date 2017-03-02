@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}Project Details{% endblock %}
+
+{% block content %}
+
+{% if not project.is_active %}
+	<div class="alert alert-warning">Project waiting approval</div>
+{% endif %}
+
+{% include 'jenkins_auth/project.html' %} 
+
+{% if user in project.admins.user_set.all or user == project.owner %}
+	<div class="buttons">
+	  <input class="btn btn-primary"
+	  	type="button"
+	  	onclick="location.href='{% url 'project-update' project.id %}'"
+			value="Edit Details" />
+
+		{% if project.owner == user %}
+	   	<input class="btn btn-danger"
+	   		type="button"
+	   		onclick="location.href='{% url 'project-delete' project.id %}'"
+				value="Delete Project" />
+		{% endif %}
+
+	</div>
+{% endif %}
+
+{% endblock %}

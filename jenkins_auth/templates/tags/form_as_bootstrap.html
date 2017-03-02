@@ -1,0 +1,30 @@
+{% load i18n widget_tweaks %}
+
+<fieldset>
+  {% for field in bs_form %}
+    {% if field.errors %}
+      <div class="form-group error">
+        <label class="control-label {{ label_col }}" for="id_{{ field.name }}">{{ field.label }}:</label>
+        <div class="{{ data_col }}">
+          {{ field|attr:"class:form-control" }}
+          <span class="help-inline text-danger">
+            {% for error in  field.errors %}{{ error }}{% endfor %}
+          </span>
+            {% if field.help_text %}
+              <p class="help-inline"><small>{{ field.help_text }}</small></p>
+            {% endif %}
+        </div>
+      </div>
+    {% else %}
+      <div class="form-group">
+        <label class="control-label {{ label_col }}" for="id_{{ field.name }}">{{ field.label }}:</label>
+        <div class="{{ data_col }}">
+          {{ field|attr:"class:form-control" }}
+          {% if field.help_text %}
+            <p class="help-inline"><small>{{ field.help_text }}</small></p>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+</fieldset>

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load i18n staticfiles jenkins_auth_extras %}
+
+{% block head %}
+<script type="text/javascript" src={% static "/admin/js/jquery.init.js" %}></script>
+{{ form.media }}
+{% endblock %}
+
+{% block title %}Project Update{% endblock %}
+
+{% block content %}
+
+{% if form.non_field_errors %}
+	<div class="alert alert-danger">{{ form.non_field_errors }}</div>
+{% endif %}
+
+{% if not project.is_active %}
+	<div class="alert alert-warning">Project waiting approval</div>
+{% endif %}
+
+<form method="post" action="" class="form-horizontal">
+  {% csrf_token %}
+  <div class="row">
+    <label class="text-right col-sm-2">Project name:</label>
+    <div class="col-sm-10">{{ project.name }}</div>
+  </div>
+
+  <div class="row">
+    <label class="text-right col-sm-2">Owner:</label>
+    <div class="col-sm-10">{{ project.owner.get_full_name }}</div>
+  </div>
+
+  <div class="row">
+    <label class="text-right col-sm-2">Date created:</label>
+    <div class="col-sm-10">{{ project.created_on }}</div>
+  </div>
+
+  {% form_as_bootstrap form %}
+
+  <div  class="buttons">
+  	<input class="btn btn-primary"
+  		type="submit"
+  		value="SAVE" />
+   	<input class="btn btn-primary"
+			type="button"
+   		onclick="location.href='{% url 'project-detail' project.id %}'"
+			value="Cancel" />
+	</div>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,10 @@
+{% load i18n %}{% blocktrans with user_name=user.get_full_name user_id=user.id site_name=site.name %}Dear {{ user_name }},
+Your request for the creation of an account on {{ site_name }} has been approved.
+Your unique id is: {{ user_id }}{% endblocktrans %}
+{% blocktrans %}
+You can log in at :{% endblocktrans %}
+https://{{site.domain}}{% url 'login' %}
+{% blocktrans with site_name=site.name %}
+Sincerely,
+{{ site_name }}
+{% endblocktrans %}

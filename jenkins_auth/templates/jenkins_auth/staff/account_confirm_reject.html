@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n jenkins_auth_extras %}
+
+{% block title %}User Rejection{% endblock %}
+
+{% block content %}
+
+<div class="alert alert-danger">Please confirm rejection of the account for "{{ user.get_full_name }}" ({{ user }})</div>
+
+<form method="post" action="" class="form-horizontal">
+  {% csrf_token %}
+
+	<!-- text box for reason for rejection -->
+  {% form_as_bootstrap form %}
+
+  <div class="buttons">
+		<input class="btn btn-danger" type="submit" value="Confirm Rejection" />
+    <input class="btn btn-primary" type="button" onclick="javascript:history.go(-1);"
+			value="Cancel" />
+	</div>
+
+</form>
+
+{% endblock %}

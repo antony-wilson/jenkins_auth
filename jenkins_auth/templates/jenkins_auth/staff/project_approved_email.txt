@@ -1,0 +1,9 @@
+{% load i18n %}{% blocktrans with user_name=project.owner.get_full_name project_name=project.name site_name=site.name %}Dear {{ user_name }},
+Your request for the creation of the project {{ project_name }} on {{ site_name }} has been approved.{% endblocktrans %}
+{% blocktrans %}
+You can view your project at :{% endblocktrans %}
+https://{{site.domain}}{% url 'project-detail' project.id %}
+{% blocktrans with site_name=site.name %}
+Sincerely,
+{{ site_name }}
+{% endblocktrans %}

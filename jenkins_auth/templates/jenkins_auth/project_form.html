@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n jenkins_auth_extras %}
+
+{% block title %}Project Creation{% endblock %}
+
+{% block content %}
+
+{% if form.non_field_errors %}
+	<div class="alert alert-danger">{{ form.non_field_errors }}</div>
+{% endif %}
+
+<form method="post" action="" class="form-horizontal">
+  {% csrf_token %}
+
+  {% form_as_bootstrap form %}
+
+  <div  class="buttons">
+   	<input class="btn btn-primary"
+			type="submit"
+   		value="Submit" />
+		<input class="btn btn-primary"
+			type="button"
+			onclick="location.href='{% url 'home' %}'"
+			value="Cancel" />
+	</div>
+
+</form>
+
+{% endblock %}

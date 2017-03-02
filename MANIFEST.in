@@ -1,0 +1,13 @@
+include LICENSE
+include README.md
+include jenkins_auth/local_settings.py.ini
+recursive-include jenkins_auth/resources *
+recursive-include jenkins_auth/static *
+recursive-include jenkins_auth/templates *
+recursive-include jenkins_auth/api *py
+recursive-include jenkins_auth/staff *py
+recursive-include jenkins_auth/staff_admin *py
+recursive-include jenkins_auth/templatetags *py
+
+recursive-exclude test *
+exclude jenkins_auth/local_settings.py

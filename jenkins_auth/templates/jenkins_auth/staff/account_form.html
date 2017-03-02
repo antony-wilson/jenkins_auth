@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+{% load i18n jenkins_auth_extras %}
+
+{% block title %}
+{% if status == 'active' %}
+	User Details
+{% elif status == 'deleted' %}
+	User Deleted
+{% elif status == 'approval' %}
+	User Approval
+{% else %}
+	User Registration Incomplete
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<div>
+  <div class="row">
+    <label class="text-right col-sm-2">User id:</label>
+    <div class="col-sm-10">{{ user.id }}</div>
+  </div>
+
+  {% if user.jenkinsuserprofile.shib_uid %}
+  <div class="row">
+    <label class="text-right col-sm-2">Shibboleth id:</label>
+    <div class="col-sm-10">{{ user.jenkinsuserprofile.shib_uid }}</div>
+  </div>
+  {% else %}
+  <div class="row">
+    <label class="text-right col-sm-2">User name:</label>
+    <div class="col-sm-10">{{ user.username }}</div>
+  </div>
+  {% endif %}
+
+  <div class="row">
+    <label class="text-right col-sm-2">First name:</label>
+    <div class="col-sm-10">{{ user.first_name }}</div>
+  </div>
+
+  <div class="row">
+    <label class="text-right col-sm-2">Last name:</label>
+    <div class="col-sm-10">{{ user.last_name }}</div>
+  </div>
+
+  <div class="row">
+    <label class="text-right col-sm-2">Email:</label>
+    <div class="col-sm-10">{{ user.email }}</div>
+  </div>
+
+  <div class="row">
+    <label class="text-right col-sm-2">Staff member:</label>
+    <div class="col-sm-10">
+      {% boolean_icon user.is_staff %}
+    </div>
+  </div>
+
+  <div class="row">
+    <label class="text-right col-sm-2">Date joined:</label>
+    <div class="col-sm-10">{{ user.date_joined }}</div>
+  </div>
+
+  {% if user.last_login %}
+  <div class="row">
+    <label class="text-right col-sm-2">Last logged in:</label>
+    <div class="col-sm-10">{{ user.last_login }}</div>
+  </div>
+  {% endif %}
+    
+	{% if user.project_owner.all %}
+  <div class="row">
+    <label class="text-right col-sm-2">Projects owned:</label>
+    <div class="col-sm-10">
+	    {% for project in user.project_owner.all %}
+	    	{{ project.name }}</br>
+			{% endfor %}
+    </div>
+  </div>
+	{% endif %}
+
+	{% if project_admin_list %}
+  <div class="row">
+    <label class="text-right col-sm-2">Project admin for:</label>
+    <div class="col-sm-10">
+		{% for project in project_admin_list %}
+			{{ project.name }}</br>
+		{% endfor %}
+    </div>
+  </div>
+	{% endif %}
+
+	{% if project_user_list %}
+  <div class="row">
+    <label class="text-right col-sm-2">Project user in:</label>
+    <div class="col-sm-10">
+		{% for project in project_user_list %}
+			{{ project.name }}</br>
+		{% endfor %}
+    </div>
+  </div>
+	{% endif %}
+
+</div>
+
+{% if status == 'active' %}
+<!-- user is active -->
+<div class="buttons">
+  <form method="post" action="togglestaff/">
+  {% csrf_token %}
+
+	<input class="btn btn-primary"
+  	type="button" 
+    onclick="javascript:history.go(-1);"
+		value="Back" />
+
+  <input class="btn btn-primary"
+    type="button" 
+    onclick=""
+    value="Update Shibboleth ID (TODO)" />
+
+	{% if user.project_owner.all %}
+  <!-- delete is disabled as user is a project owner -->
+  <input class="btn btn-danger disabled"
+    type="button" 
+    value="Delete Account"
+    data-toggle="tooltip"
+    title="This user cannot be deleted as they are a project owner" />
+	{% else %}
+ 	<input class="btn btn-danger"
+ 		type="button" 
+   	onclick="location.href='{% url 'staff_user_delete' user.id %}'"
+		value="Delete Account" />
+	{% endif %}
+
+  {% if is_staff_admin %}
+	  {% if user.is_staff %}
+		  <input class="btn btn-warning"
+		    type="submit" 
+		    value="Remove Staff Status" />
+	  {% else %}
+		  <input class="btn btn-warning"
+		    type="submit" 
+		    value="Make Staff" />
+	  {% endif %}
+  {% endif %}
+  </form>
+
+</div>
+
+{% elif status == 'deleted' %}
+<!-- user deleted -->
+<div class="buttons">
+  <input class="btn btn-primary"
+  	type="button" 
+    onclick="location.href='{% url 'staff_user_deleted' %}'"
+		value="Back" />
+</div>
+
+{% elif status == 'approval' %}
+<!-- user waiting approval -->
+<div class="buttons">
+	<form method="post" action="approve/">
+  {% csrf_token %}
+	  <input class="btn btn-success"
+	   	type="submit"
+	   	value="Approve" />
+
+	  <input class="btn btn-danger"
+	  	type="button" 
+    	onclick="location.href='{% url 'staff_user_reject' user.id %}'"
+			value="Reject" />
+
+	<input class="btn btn-primary"
+	  type="button" 
+    onclick="location.href='{% url 'staff_user_approval' %}'"
+		value="Cancel" />
+	</form>
+</div>
+
+{% else %}
+<!-- registration incomplete -->
+<div class="buttons">
+  <input class="btn btn-primary"
+  	type="button" 
+    onclick="location.href='{% url 'staff_user_registration' %}'"
+		value="Back" />
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,8 @@
+{% load i18n %}{% blocktrans with user_name=project.owner.get_full_name project_name=project.name site_name=site.name %}User {{ user_name }} has requested a new projet, {{ project_name }}, at {{ site_name }}.{% endblocktrans %}
+{% blocktrans %}
+Please review their application at :{% endblocktrans %}
+https://{{site.domain}}{% url 'staff_project_detail' project.id %}
+{% blocktrans with site_name=site.name %}
+Sincerely,
+{{ site_name }}
+{% endblocktrans %}
